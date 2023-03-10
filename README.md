@@ -97,6 +97,7 @@ As was stated earlier this course does not go over every Cisco product covered i
 
 
 * [![Python][https://www.python.org/]][Python-url]
+* [![SQLite3][https://docs.python.org/3/library/sqlite3.html]][SQLite3-url]
 * [![Ubuntu][https://ubuntu.com/]][Ubuntu-url]
 * [![AWS][https://aws.amazon.com]][AWS-url]
 * [![Meraki][https://developer.cisco.com/meraki/meraki-platform/]][Meraki-url]
@@ -151,7 +152,11 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- ROADMAP -->
 ## Roadmap
 
+- [x] Project Directory and Scrum Board.
+- [x] Code skeleton of the web app.
+- [current] Debugging Phase
 - [ ] Finish Version 1 of the Flask App.
+- [ ] Debugging Phase
 - [ ] Test Meraki integrations.
 - [ ] Add Problems/Solutions Sections.
 
@@ -196,7 +201,7 @@ Project Link: [https://github.com/EdNetTitan/Unofficial_DevNet_CourseWork](https
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+Here are a few resources I've used to learn and pass the Cisco DevNet with!
 
 * [Udemy Courses](https://www.udemy.com/)
 * [Cisco's DevNet Guide](https://www.webpagefx.com/tools/emoji-cheat-sheet)
@@ -211,9 +216,5 @@ Use this space to list resources you find helpful and would like to give credit 
 
 
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[Python-Flask]
-[Ansible]
 
 [BestReadme]:  https://github.com/othneildrew/Best-README-Template/pull/73

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    {#<!--
+        Here we will use flask to link our css and some media files.
+    -->#}
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='stylesheet.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='navstyle.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='dashstyle.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <script src ="{{url_for('static', filename='topnavbar.js')}}"></script>
+    <script src="https://binaries.webex.com/static-content-pipeline/webex-embedded-app/v1/webex-embedded-app-sdk.js" defer></script>
+   
+
+    <head class="head"> 
+        {#<!--
+            Here we will use flask to call for media and javascript functions.
+        -->#}
+       
+        <div id="total_header">
+            <div id="sideNav" class="sidebar">
+                <a href="javascript:void(0)" class ="closebtn" onclick="changeSideNav()"><img  src="{{url_for('static', filename='images/border-style.svg')}}" width="23" height="23"/></a>
+                <a href="{{url_for('dashboard.devices')}}"><img src="{{url_for('static', filename='images/heart-pulse.svg')}}" width="23" height="23"><span class="sidebar_text">  Devices</span></a>
+                <a href="{{url_for('dashboard.networks')}}"><img src="{{url_for('static', filename='images/house-door.svg')}}" width="23" height="23"/><span class="sidebar_text">  Locations</span></a>
+                <a href="{{url_for('dashboard.views')}}"><img src="{{url_for('static', filename='images/grid-1x2-fill.svg')}}" width="23" height="23" /><span class="sidebar_text">  Views</span></a>
+            </div>
+
+            <div id="header_left">
+            {% if g.user %}
+                <h2>  Welcome back {{g.user['username']}} to EE_Cafe Webapp</h2>
+            {% else %}
+                <h2>  Welcome to EE_Cafe Webapp</h2>
+            {% endif %}      
+            </div>
+            
+            <div id="header_right">  
+                <h2>
+                    {% if g.user %}
+                    <span>{{g.user['username']}}</span>
+                    <a href="{{url_for('auth.logout') }}">Log Out</a>
+                    {% else %}
+                        <tbody>
+                            <tr>
+                                <td><a href="{{url_for('auth.login') }}">Log In</a></td>
+                                <td><a href="{{url_for('auth.register') }}">Register</a></td>
+                                <td>
+                                    <select id="language">
+                                        <option><a href="{{url_for('home.home')}}">🇺🇸</a></option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    {% endif %}
+                </h2>    
+            </div>
+        </div>
+    </head>
+    
+    <div class='topnav'>
+        <input  id="search_bar" type="text" placeholder="Search.." >
+        <div id="menu_bar">
+            <a id="home_link" class="main_nav" href="{{url_for('home.home')}}">Home</a>
+            <a id="dashboard_link" class="main_nav" href="{{url_for('dashboard.dashboard')}}">Dashboard</a>
+        </div>    
+        {#<!--
+            We can still put comments into our code with these brackets.
+        -->#}  
+    </div>
+        {% block headspace %}
+        {% endblock %}
+    <body>
+      {% if not g.user  %} 
+      <p><h2>This website is for Electronic Entertainment Cafe Employees Only,
+        Please contact at 555-555-5555 for assistance.</h2>
+    </p>
+        {% endif %}
+        
+
+		<section id="content" class="content">
+            {% block content %}
+            {% endblock %}
+		</section>
+
+        
+    </body>
+    <footer>
+        <div id="footer_menu">
+            <a id="Home" class="footer_nav" href="{{url_for('home.comingsoon')}}">V0.0.1</a>
+            <a id="Dashboard" class="footer_nav" href="{{url_for('home.comingsoon')}}">Developers</a>
+        </div>    
+
+    </footer>
+</html>

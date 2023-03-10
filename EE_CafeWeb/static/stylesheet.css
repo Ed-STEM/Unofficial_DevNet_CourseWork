@@ -1,0 +1,139 @@
+#total_header{
+    width: 96%;
+    margin-left: 70px;
+    background-image: linear-gradient(to right,#ab97da, #6666ff ); 
+    display: flex;
+    flex-direction: row;
+    position :absolute top 75px;
+    height: 50px;
+    border-radius: 4px;
+    align-items: center;
+}
+
+#header_left{
+    overflow: hidden;
+    font-family: 'Rockwell', 'Arial', serif;
+    color: #c7fad7;
+    text-align: left;
+    align-items: center;
+    width: 70%;
+    float: left;
+    white-space: nowrap;
+    flex: 1;
+    margin-left: 4px;
+}
+
+#header_right a{
+    overflow: visible;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: #c7fad7;
+    white-space: nowrap;
+}
+
+#header_right select{
+    background-color: #FBEAEB;
+    border: #FBEAEB;
+    border-radius: 4px;
+    margin-right: 4px;
+}
+
+/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+body {
+    background-color: #F4EFEA;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+#coming_soon{
+    text-align: center;
+    background-color: #7a52ba;
+    width: 15%;
+	padding-top: 10px;
+	padding-right: 30%;
+	padding-bottom: 10px;
+	padding-left: 30%;
+    color: #FBEAEB;
+}
+
+[method=post]{
+	text-align: center;
+	background-color: #CCFFFF;
+	margin: 1em 0;
+	display: flex;
+	flex-direction: column;
+	width: 15%;
+	padding-top: 10px;
+	padding-right: 30%;
+	padding-bottom: 10px;
+	padding-left: 30%;
+}
+
+/*
+  @media(max-width:100px) 
+  { .sidebar_text{display:none;}};
+  */
+
+  /* The button used to open the sidebar */
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #7a52ba;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+  }
+  
+.openbtn:hover {
+    background-color: #6666ff;
+  }
+
+.dialog{
+    background-image: linear-gradient(to right, #f8e7f6, #FBEAEB); 
+    border-radius: 4px;
+    margin-right: 4px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    justify-content: center; 
+    border: black;
+    visibility: visible;
+}
+
+.tooltip{
+    background-color: #FBEAEB;
+    border: #1b1b1b;
+    border-radius: 4px;
+    margin-right: 4px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+footer{
+    position: absolute;
+    width: 95%;
+    height: 50px;
+    margin-left: 70px;
+    background: #6666ff; 
+    display: block;
+    text-align: center;
+    bottom: 0;
+    overflow-y: hidden;
+    border-radius: 4px;
+  }
+
+footer a{
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: white;
+    font-size: 18px;
+    margin-top: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    text-align: center;
+}
+
+footer a:hover{
+    color: #33FF3C;
+}
+
+@media screen and (max-height: 480px) {
+    footer  {
+          visibility: hidden;
+    }
+    }

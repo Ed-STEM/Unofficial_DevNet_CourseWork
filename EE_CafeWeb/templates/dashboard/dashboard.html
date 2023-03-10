@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{%block headspace %}
+<div class="content_header">
+    {% block content_header %}
+    {% endblock %}
+    </div>
+{% endblock %}
+{% block content %}
+<script src ="{{url_for('static', filename='dashcontrol.js')}}"></script>
+<script src ="{{url_for('static', filename='dashstyle.css')}}"></script>
+
+<div class="content_top_left">
+{% block content_top_left %}
+{% endblock %}
+</div>
+
+<div class = "content_top_right">
+{% block content_top_right %}
+{% endblock %}
+</div>
+
+<div class = "content_bottom_left">
+{% block content_bottom_left %}
+{% endblock %}
+</div>
+
+<div class="content_bottom_right">
+{% block content_bottom_right %}
+{% endblock %}
+</div>
+
+
+{% endblock %}

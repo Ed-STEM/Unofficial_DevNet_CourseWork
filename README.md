@@ -15,12 +15,6 @@
 *** See the bottom of this document for the declaration of the reference variables
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -28,7 +22,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/EdNetTitan/Unofficial_DevNet_CourseWork">
-    <img src="media/CourseLogo.jpeg" alt="Logo" width="80" height="80">
+    <img src="Media/CourseLogo.jpeg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Unofficial Cisco DevNet Associates Course</h3>
@@ -81,7 +75,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 Cisco certifications have been an industry standard for several decades in network technologies and have a great value to those that hold them. Cisco has a new line of certifcations called the DevNet, in which the test taker must show proficient skills using network automation tools, software programming, and operations deployments. While there is a great book that has been officially released as the guide to the exam, sandbox labs on developer.cisco.com. Having achieved these certifications and knowing that there aren't many other courses available I wanted to show students one large project that employ's most of what is on the test to give near real life experience. However, this project does not provide 100% of what is covered on the exam and should be considered complimentary.
 

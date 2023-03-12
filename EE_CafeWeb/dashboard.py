@@ -7,15 +7,17 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from EE_CafeWeb.db import get_db
 from EE_CafeWeb.home import login_required
 
-#Our os and web communication libraries, we will use requests to connect to the Cisco Meraki web api
+#Our os 
 import os
 import io
-import requests
-from requests_oauthlib import OAuth1Session
 import json
 
 #We will use both the sdk and api for Cisco Meraki this is the library SDK
+import requests
+import asyncio
+from requests_oauthlib import OAuth1Session
 import meraki
+
 
 # For drawing visualizatins directly with python
 from matplotlib.backends.backend_agg import FigureCanvasAgg as figc
@@ -104,13 +106,42 @@ def active_devices():
 
 @blueprint_dash.route('/networks', methods=('GET', 'POST'))
 #@login_required
-def meals():
-    pass
+def networks():
+async def devices(aiomeraki: meraki.aio.AsyncDashboardAPI, org):
+    try:
+        networks = await aiomeraki.clients.getOrganizationNetworks(
+            org["id"]
+        )
+    except meraki.AsyncAPIError as eM:
+        return eM
+    except Exception as e:
+        return e
+    else:
+        if clients:
+            #update dashboard on webpage.
+            return networks
+    return org["id"], None
 
 @blueprint_dash.route('/devices', methods=('GET', 'POST'))
 #@login_required
-def devices():
-    pass
+async def devices(aiomeraki: meraki.aio.AsyncDashboardAPI, network):
+    try:
+        clients = await aiomeraki.clients.getNetworkClients(
+            network["id"],
+            timespan=60*60*24
+            perPage=1000,
+            total_pages="all",
+        )
+    except meraki.AsyncAPIError as eM:
+        return eM
+    except Exception as e:
+        return e
+    else:
+        if clients:
+            #update dashboard on webpage.
+            return network["name"], field_names
+    return network["name"], None
+
 
 @blueprint_dash.route('/bandwidth_perc', methods=('GET', 'POST'))
 #@login_required

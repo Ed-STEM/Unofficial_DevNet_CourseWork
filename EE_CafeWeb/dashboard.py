@@ -26,8 +26,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 os.environ.get('XCiscoMerakiAPIKey')
+url = 'https://api.meraki.com/api/v1'
+headers = {
+    'Content-Type': 'application/json',
+    'X-Cisco-Meraki-API-Key': 'YOUR_API_KEY'
+}
 
-normal_config = {}
+organization_Id = "EnterOrgId Here"
 network_dict = {}
 device_dict = {}
 
@@ -56,8 +61,7 @@ def dashboard():
         #only use login less dash under testing conditions.
         return render_template('dashboard/dashboard.html')
 
-#taken from documentation Change to return response values and not print them.
-@blueprint_dash.route('/meraki_user_authorize', methods=('GET', 'POST'))
+@blueprint_dash.route('/meraki_user_authorize_API', methods=('GET', 'POST'))
 @login_required
 def meraki_user_authorize():
     try:
@@ -65,49 +69,48 @@ def meraki_user_authorize():
         API_KEY = X-Cisco-Meraki-API-Key
         response = session.get('https://api.meraki.com/api/v1/organizations/', headers={'Authorization': f'Bearer {API_KEY}'})
         print(response.json()) 
-        return render_template('dashboard/dashboard.html', personal_auth=transfer_dict)
+        return render_template('dashboard/dashboard.html', response=response)
     except Exception as error:
         return render_template('dashboard/dashboard.html', personal_auth=error)   
  
-#taken from documentation Change to return response values and not print them.
-@blueprint_dash.route('/meraki_user_authorize', methods=('GET', 'POST'))
+
+@blueprint_dash.route('/meraki_user_authorize_SDK', methods=('GET', 'POST'))
 @login_required
 def meraki_user_authorize():
     try:
         dashboard = meraki.DashboardAPI(API_KEY)
         response = dashboard.organizations.getOrganizations()
         print(response) 
-        return render_template('dashboard/dashboard.html', personal_auth=transfer_dict)
+        return render_template('dashboard/dashboard.html', response=response)
     except Exception as error:
         return render_template('dashboard/dashboard.html', personal_auth=error)   
  
- #API URL options
- # /createOrganization
- # /networks
- # /devices
- # /health
- # /trafficAnalysis      
 
-@blueprint_dash.route('/active_friends', methods=('GET', 'POST'))
+@blueprint_dash.route('/health_alerts', methods=('GET', 'POST'))
 @login_required
-def active_devices():
-    #Junk data for testing right now.
-    plt.rcParams["figure.figsize"] = [7.50, 3.50]
-    plt.rcParams["figure.autolayout"] = True
-    test_fig = Figure()
-    axis = test_fig.add_subplot(1, 1, 1)
-    xs = [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10]
-    ys = [3, 3, 3.35, 3.15, 3, 3.15, 3, 3.25, 3, 3.15]
-    axis.plot(xs, ys)
-    output = io.BytesIO()
-    figc(test_fig).print_png(output)
-    return Response(output.getvalue(), mimetype='image/png')    
+async def get_health_usage(organization_Id):
+    payload = {'bandwidthLimits': bandwidth_limits}
+    response = requests.put(f'{url} /organizations/{organizationId}/summary/top/clients/byUsage', headers=headers, json=payload)
+    if response.status_code == 200:
+        return render_template('dashboard/dashboard.html', response=response)
+    else:
+        return response.status_code
+  
+@blueprint_dash.route('/health_alerts', methods=('GET', 'POST'))
+@login_required
+async def get_health_alerts(network_id):
+    payload = {'networks': network_id}
+    response = requests.put(f'{url}/networks/{network_id}/health/alerts', headers=headers, json=payload)
+    if response.status_code == 200:
+        return render_template('dashboard/dashboard.html', response=response)
+    else:
+        return response.status_code
 
+ 
 
 @blueprint_dash.route('/networks', methods=('GET', 'POST'))
 #@login_required
-def networks():
-async def devices(aiomeraki: meraki.aio.AsyncDashboardAPI, org):
+async def networks(aiomeraki: meraki.aio.AsyncDashboardAPI, org):
     try:
         networks = await aiomeraki.clients.getOrganizationNetworks(
             org["id"]
@@ -123,7 +126,7 @@ async def devices(aiomeraki: meraki.aio.AsyncDashboardAPI, org):
     return org["id"], None
 
 @blueprint_dash.route('/devices', methods=('GET', 'POST'))
-#@login_required
+@login_required
 async def devices(aiomeraki: meraki.aio.AsyncDashboardAPI, network):
     try:
         clients = await aiomeraki.clients.getNetworkClients(
@@ -144,17 +147,27 @@ async def devices(aiomeraki: meraki.aio.AsyncDashboardAPI, network):
 
 
 @blueprint_dash.route('/bandwidth_perc', methods=('GET', 'POST'))
-#@login_required
-def meals():
-    pass
+@login_required
+async def allocate_bandwidth(network_id, bandwidth_limits):
+    payload = {'bandwidthLimits': bandwidth_limits}
+    response = requests.put(f'{url}/networks/{network_id}/trafficShaping', headers=headers, json=payload)
+    if response.status_code == 200:
+        return response
+    else:
+        return response.status_code
 
-@blueprint_dash.route('/total_data', methods=('GET', 'POST'))
-#@login_required
-def market():
-    pass
 
-
-#@blueprint_dash.route('/webex_active', methods=('GET', 'POST'))
-#def webex_active():
-#    pass
-
+@blueprint_dash.route('/active_friends', methods=('GET', 'POST'))
+@login_required
+def active_devices():
+    #Junk data for testing right now.
+    plt.rcParams["figure.figsize"] = [7.50, 3.50]
+    plt.rcParams["figure.autolayout"] = True
+    test_fig = Figure()
+    axis = test_fig.add_subplot(1, 1, 1)
+    xs = [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10]
+    ys = [3, 3, 3.35, 3.15, 3, 3.15, 3, 3.25, 3, 3.15]
+    axis.plot(xs, ys)
+    output = io.BytesIO()
+    figc(test_fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')    

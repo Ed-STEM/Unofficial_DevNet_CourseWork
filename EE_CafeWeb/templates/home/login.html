@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="loginform">
+    <h1>Login Please</h1>
+    <h2>Login Attempt 1 of 4</h2>
+	<form  method="post" >
+		<label for='username'>Username</label>
+		<input autofocus name="username" id="username" type="text" required>
+		<label for='password'>Password</label>
+		<input type="password" name="password" id="password" required>
+		<input type='submit' value="Log In">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+	</form>
+    <script src ="{{url_for('static', filename='dashcontrol.js')}}"></script>
+
+
+</div>
+{% endblock %}

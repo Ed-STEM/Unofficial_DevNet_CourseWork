@@ -1,7 +1,7 @@
 #total_header{
     width: 96%;
     margin-left: 70px;
-    background-image: linear-gradient(to right,#ab97da, #6666ff ); 
+    background-image: linear-gradient(to right,rgba(221, 77, 51, 0.533), #ff6666 ); 
     display: flex;
     flex-direction: row;
     position :absolute top 75px;
@@ -13,7 +13,7 @@
 #header_left{
     overflow: hidden;
     font-family: 'Rockwell', 'Arial', serif;
-    color: #c7fad7;
+    color: #f9fac7;
     text-align: left;
     align-items: center;
     width: 70%;
@@ -26,7 +26,7 @@
 #header_right a{
     overflow: visible;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    color: #c7fad7;
+    color: #f9fac7;
     white-space: nowrap;
 }
 
@@ -45,7 +45,7 @@ body {
 
 #coming_soon{
     text-align: center;
-    background-color: #7a52ba;
+    background-color: #ba5252;
     width: 15%;
 	padding-top: 10px;
 	padding-right: 30%;
@@ -67,6 +67,35 @@ body {
 	padding-left: 30%;
 }
 
+#container {
+    display: flex;
+    width: 100%;
+}
+
+#first {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 35%;
+    height: 90vh;
+    margin-left: 10px;
+}
+.grid-container {
+    display: grid;
+    grid-template-areas: "buttonAdd buttonRemove buttonRefresh buttonReset";
+    grid-gap: 5px;
+}
+.grid-item:nth-child(1) {
+    grid-area: button1;
+}
+.grid-item:nth-child(2) {
+    grid-area: button1;
+}
+.grid-item:nth-child(3) {
+    grid-area: button1;
+}
+.grid-item:nth-child(4) {
+    grid-area: button1;
+}
 /*
   @media(max-width:100px) 
   { .sidebar_text{display:none;}};
@@ -76,7 +105,7 @@ body {
 .openbtn {
     font-size: 20px;
     cursor: pointer;
-    background-color: #7a52ba;
+    background-color: #ff6666;
     color: black;
     padding: 10px 15px;
     border: none;
@@ -109,7 +138,7 @@ footer{
     width: 95%;
     height: 50px;
     margin-left: 70px;
-    background: #6666ff; 
+    background: #ff6666; 
     display: block;
     text-align: center;
     bottom: 0;
@@ -129,7 +158,7 @@ footer a{
 }
 
 footer a:hover{
-    color: #33FF3C;
+    color: #f9fac7;
 }
 
 @media screen and (max-height: 480px) {

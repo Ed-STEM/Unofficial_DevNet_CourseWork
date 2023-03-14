@@ -6,8 +6,27 @@
     </div>
 {% endblock %}
 {% block content %}
-<script src ="{{url_for('static', filename='dashcontrol.js')}}"></script>
-<script src ="{{url_for('static', filename='dashstyle.css')}}"></script>
+<div id = "container">
+    <div id = "first">
+      <div class = "grid-container">
+        <div class="grid-item">
+          <button type = "button" id = "bAdd" class = "small_btn">ButtonAdd</button>
+        </div>
+        <div class="grid-item">
+          <button type = "button" id = "bRemove" class = "small_btn">ButtonRemove</button>
+        </div>
+        <div class="grid-item">
+          <button type = "button" id = "bRefresh" class = "small_btn">ButtonRefresh</button>
+        </div>
+        <div class="grid-item">
+          <button type = "button" id = "bReset" class = "small_btn">ButtonReset</button>
+        </div>
+      </div>
+    </div>
+    <div id = "CaptionText">
+      <p>Here we can add instructions to the form.</p>
+    </div>
+  </div>
 
 <div class="content_top_left">
 {% block content_top_left %}

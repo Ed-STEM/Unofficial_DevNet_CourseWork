@@ -26,7 +26,6 @@
                 <a href="javascript:void(0)" class ="closebtn" onclick="changeSideNav()"><img  src="{{url_for('static', filename='images/border-style.svg')}}" width="23" height="23"/></a>
                 <a href="{{url_for('dashboard.devices')}}"><img src="{{url_for('static', filename='images/heart-pulse.svg')}}" width="23" height="23"><span class="sidebar_text">  Devices</span></a>
                 <a href="{{url_for('dashboard.networks')}}"><img src="{{url_for('static', filename='images/house-door.svg')}}" width="23" height="23"/><span class="sidebar_text">  Locations</span></a>
-                <a href="{{url_for('dashboard.views')}}"><img src="{{url_for('static', filename='images/grid-1x2-fill.svg')}}" width="23" height="23" /><span class="sidebar_text">  Views</span></a>
             </div>
 
             <div id="header_left">
@@ -41,12 +40,12 @@
                 <h2>
                     {% if g.user %}
                     <span>{{g.user['username']}}</span>
-                    <a href="{{url_for('auth.logout') }}">Log Out</a>
+                    <a href="{{url_for('home.logout') }}">Log Out</a>
                     {% else %}
                         <tbody>
                             <tr>
-                                <td><a href="{{url_for('auth.login') }}">Log In</a></td>
-                                <td><a href="{{url_for('auth.register') }}">Register</a></td>
+                                <td><a href="{{url_for('home.login') }}">Log In</a></td>
+                                <td><a href="{{url_for('home.register') }}">Register</a></td>
                                 <td>
                                     <select id="language">
                                         <option><a href="{{url_for('home.home')}}">🇺🇸</a></option>

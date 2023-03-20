@@ -1,5 +1,5 @@
 import os
-import flask (Blueprint, Flask, flash, g, redirect, render_template, request, session, url_for)
+from flask import (Blueprint, Flask, flash, g, redirect, render_template, request, session, url_for)
 
 def create_app(test_config=None):
     """
@@ -20,6 +20,9 @@ def create_app(test_config=None):
         SESSION_COOKIE_SAMESITE = "Lax",
     )
 
+    from . import db
+    db.init_app(app)
+
     if test_config is None:
         app.config.from_pyfile('config.py', silent = True)
     else:
@@ -35,15 +38,26 @@ def create_app(test_config=None):
     app.register_blueprint(home.blueprint_home)
 
     from . import dashboard
-    app.register_blueprint(dashboard.blueprint_home)
+    app.register_blueprint(dashboard.blueprint_dash)
 
-    @blueprint_home.route('/comingsoon', methods=(['GET']))
-    def comingsoon():
-        try:
-            session['name'] = "Coming Soon Splash Page."
-            return render_template('home/comingsoon.html', code =302)
-        except:
-            return render_template('home/home.html')
+    @app.route('/test')
+    def whatup():
+        return 'what, up'
+
+    #@blueprint_home.route('/comingsoon', methods=(['GET']))
+    #def comingsoon():
+    #    try:
+    #        session['name'] = "Coming Soon Splash Page."
+    #        return render_template('home/comingsoon.html', code =302)
+    #    except:
+    #        return render_template('home/home.html')
+
+#    from . import db
+#    try:
+#        db.init_app(app)
+#    except Error as err_num:
+#        print("Error Initializing database.")
+#        print(err_num)
 
     return app
 

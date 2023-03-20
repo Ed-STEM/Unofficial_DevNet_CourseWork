@@ -17,6 +17,7 @@ import requests
 import asyncio
 from requests_oauthlib import OAuth1Session
 import meraki
+import meraki.aio
 
 
 # For drawing visualizatins directly with python
@@ -38,7 +39,7 @@ device_dict = {}
 
 blueprint_dash = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
-class NoRebuildAuthSession(Session):
+class NoRebuildAuthSession():
  def rebuild_auth(self, prepared_request, response):
    '''
    No code here means requests will always preserve the Authorization header when redirected.
@@ -63,7 +64,7 @@ def dashboard():
 
 @blueprint_dash.route('/meraki_user_authorize_API', methods=('GET', 'POST'))
 @login_required
-def meraki_user_authorize():
+def meraki_user_authorize_API():
     try:
         session = NoRebuildAuthSession()
         API_KEY = X-Cisco-Meraki-API-Key
@@ -76,7 +77,7 @@ def meraki_user_authorize():
 
 @blueprint_dash.route('/meraki_user_authorize_SDK', methods=('GET', 'POST'))
 @login_required
-def meraki_user_authorize():
+def meraki_user_authorize_SDK():
     try:
         dashboard = meraki.DashboardAPI(API_KEY)
         response = dashboard.organizations.getOrganizations()
@@ -131,7 +132,7 @@ async def devices(aiomeraki: meraki.aio.AsyncDashboardAPI, network):
     try:
         clients = await aiomeraki.clients.getNetworkClients(
             network["id"],
-            timespan=60*60*24
+            timespan=60*60*24,
             perPage=1000,
             total_pages="all",
         )

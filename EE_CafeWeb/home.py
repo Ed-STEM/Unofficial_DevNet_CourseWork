@@ -6,9 +6,9 @@ from markupsafe import escape
 
 from EE_CafeWeb.db import get_db
 
-blueprint_auth = Blueprint('auth', __name__, url_prefix='/auth')
+blueprint_home = Blueprint('home', __name__, url_prefix='/home')
 
-@blueprint_auth.before_app_request
+@blueprint_home.before_app_request
 def load_logged_in_user():
 	user_id = session.get('user_id')
 	if user_id is None:
@@ -16,7 +16,7 @@ def load_logged_in_user():
 	else:
 		g.user = get_db().execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
 
-@blueprint_auth.route('/register', methods=('GET', 'POST'))
+@blueprint_home.route('/register', methods=('GET', 'POST'))
 def register():
 	if request.method == "POST":
 		username = request.form['username']
@@ -39,12 +39,12 @@ def register():
 			except db.IntegrityError:
 				error = f"User {username} is already registered."
 			else:
-				return redirect(url_for("auth.login"))
+				return redirect(url_for("home.login"))
 
 		flash(error)
-	return render_template('auth/register.html')
+	return render_template('home/register.html')
 
-@blueprint_auth.route('/login', methods=('GET', 'POST'))
+@blueprint_home.route('/login', methods=('GET', 'POST'))
 def login():
 	if request.method == 'POST':
 		username = request.form['username']
@@ -63,12 +63,12 @@ def login():
 		if error is None:
 			session.clear()
 			session['user_id'] = user['id']
-			return redirect(url_for('auth.login'))
+			return redirect(url_for('home.login'))
 		flash(error)
 
-	return render_template('auth/login.html')
+	return render_template('home/login.html')
 
-@blueprint_auth.route('/logout')
+@blueprint_home.route('/logout')
 def logout():
     session.clear()
 

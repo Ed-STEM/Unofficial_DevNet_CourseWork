@@ -20,8 +20,7 @@ def create_app(test_config=None):
         SESSION_COOKIE_SAMESITE = "Lax",
     )
 
-    from . import db
-    db.init_app(app)
+
 
     if test_config is None:
         app.config.from_pyfile('config.py', silent = True)
@@ -43,6 +42,9 @@ def create_app(test_config=None):
     @app.route('/test')
     def whatup():
         return 'what, up'
+    
+    from . import db
+    db.init_app(app)
 
     #@blueprint_home.route('/comingsoon', methods=(['GET']))
     #def comingsoon():

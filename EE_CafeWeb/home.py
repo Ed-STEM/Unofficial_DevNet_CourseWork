@@ -16,6 +16,22 @@ def load_logged_in_user():
 	else:
 		g.user = get_db().execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
 
+
+@blueprint_home.route('/', methods=(['GET']))
+def home():
+    try:
+        already_logged_in()  #fill out home page for regular user
+        return render_template('home/home.html')
+    except:
+        return render_template('home/home.html') #Generic Welcome page.
+    
+@blueprint_home.route('/comingsoon', methods=(['GET']))
+def home():
+    try:
+        return render_template('home/comingsoon.html')
+    except:
+        return redirect(url_for('home.home'))
+
 @blueprint_home.route('/register', methods=('GET', 'POST'))
 def register():
 	if request.method == "POST":

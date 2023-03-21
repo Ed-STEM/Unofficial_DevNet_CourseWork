@@ -46,7 +46,7 @@ class NoRebuildAuthSession():
    Be careful not to leak your credentials to untrusted hosts!
    '''
 
-@blueprint_dash.route('/', methods=('GET', 'POST'))
+@blueprint_dash.route('/dashboard', methods=('GET', 'POST'))
 @login_required
 def dashboard():
     if g.user is not None:

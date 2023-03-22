@@ -1,5 +1,9 @@
 import os
 from flask import (Blueprint, Flask, flash, g, redirect, render_template, request, session, url_for)
+from flask_wtf.csrf import (CSRFProtect, CSRFError)
+
+secret_key = os.urandom(20)
+cookie_value = os.urandom(45)
 
 def create_app(test_config=None):
     """
@@ -14,13 +18,18 @@ def create_app(test_config=None):
                 static_folder='static',
                 template_folder='templates')
     
+        #Database mapping
+    app.config.from_mapping(SECRET_KEY=secret_key,DATABASE=os.path.join(app.instance_path, 'EE_CafeWeb.sqlite'))
+
+    #Security Features
+    csrf = CSRFProtect(app)
+    csrf.init_app(app)
+    
     app.config.update(
         SESSION_COOKIE_SECURE = True,
         SESSION_COOKIE_HTTPONLY = True,
         SESSION_COOKIE_SAMESITE = "Lax",
     )
-
-
 
     if test_config is None:
         app.config.from_pyfile('config.py', silent = True)
@@ -42,6 +51,18 @@ def create_app(test_config=None):
     @app.route('/test')
     def whatup():
         return 'what, up'
+    
+    @app.after_request
+    def apply_caching(response):
+        response.headers["X-Frame-Options"]="SAMEORIGIN"
+        response.headers["Content-Security-Policy"]="default-src 'self';"
+        response.headers["X-Permitted-Cross-Domain-Policies"]="master-only"
+        response.headers["X-XSS-Protection"]="1, mode=block"
+        response.headers["X-Download-Options"]="noopen"
+
+    @app.errorhandler(CSRFError)
+    def handle_csrf_error(e):
+        return render_template('error.html',reason=e.description), 400
     
     from . import db
     db.init_app(app)

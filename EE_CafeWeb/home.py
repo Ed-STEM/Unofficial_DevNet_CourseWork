@@ -26,7 +26,7 @@ def home():
         return render_template('home/home.html') #Generic Welcome page.
     
 @blueprint_home.route('/comingsoon', methods=(['GET']))
-def home():
+def comingsoon():
     try:
         return render_template('home/comingsoon.html')
     except:

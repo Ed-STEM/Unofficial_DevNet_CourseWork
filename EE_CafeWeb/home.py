@@ -9,13 +9,16 @@ from EE_CafeWeb.db import get_db
 blueprint_home = Blueprint('home', __name__, url_prefix='/home')
 
 @blueprint_home.before_app_request
+def already_logged_in():
+    load_logged_in_user()
+
+@blueprint_home.before_app_request
 def load_logged_in_user():
 	user_id = session.get('user_id')
 	if user_id is None:
 		g.user = None
 	else:
 		g.user = get_db().execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
-
 
 @blueprint_home.route('/', methods=(['GET']))
 def home():

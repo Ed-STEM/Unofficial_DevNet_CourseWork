@@ -23,6 +23,7 @@ def close_db(e=None):
             db.close()
             print("Database shutdown.")
 
+#@current_app.before_first_request
 def init_db():
     db = get_db()
     try:
@@ -30,7 +31,7 @@ def init_db():
             db.executescript(f.read().decode("utf8"))
             print("Database being read.")
     except sqlite3.OperationalError as err_num:
-        print("Error reading database: err_num")
+        print("Error reading database: ", err_num)
 
 @click.command('init-db')
 @with_appcontext

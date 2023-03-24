@@ -9,10 +9,6 @@ from EE_CafeWeb.db import get_db
 blueprint_home = Blueprint('home', __name__, url_prefix='/home')
 
 @blueprint_home.before_app_request
-def already_logged_in():
-    load_logged_in_user()
-
-@blueprint_home.before_app_request
 def load_logged_in_user():
 	user_id = session.get('user_id')
 	if user_id is None:
@@ -23,7 +19,7 @@ def load_logged_in_user():
 @blueprint_home.route('/', methods=(['GET']))
 def home():
     try:
-        already_logged_in()  #fill out home page for regular user
+        load_logged_in_user()  #fill out home page for regular user
         return render_template('home/home.html')
     except:
         return render_template('home/home.html') #Generic Welcome page.

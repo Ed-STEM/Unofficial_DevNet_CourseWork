@@ -52,13 +52,13 @@ def create_app(test_config=None):
     def whatup():
         return 'what, up'
     
-    @app.after_request
-    def apply_caching(response):
-        response.headers["X-Frame-Options"]="SAMEORIGIN"
-        response.headers["Content-Security-Policy"]="default-src 'self';"
-        response.headers["X-Permitted-Cross-Domain-Policies"]="master-only"
-        response.headers["X-XSS-Protection"]="1, mode=block"
-        response.headers["X-Download-Options"]="noopen"
+#    @app.after_request
+#    def apply_caching(response):
+#        response.headers["X-Frame-Options"]="SAMEORIGIN"
+#        response.headers["Content-Security-Policy"]="default-src 'self';"
+#        response.headers["X-Permitted-Cross-Domain-Policies"]="master-only"
+#        response.headers["X-XSS-Protection"]="1, mode=block"
+#        response.headers["X-Download-Options"]="noopen"
 
     @app.errorhandler(CSRFError)
     def handle_csrf_error(e):

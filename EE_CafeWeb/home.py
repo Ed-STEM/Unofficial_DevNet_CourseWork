@@ -6,7 +6,7 @@ from markupsafe import escape
 
 from EE_CafeWeb.db import get_db
 
-blueprint_home = Blueprint('home', __name__, url_prefix='/home')
+blueprint_home = Blueprint('home', __name__, url_prefix='/')
 
 @blueprint_home.before_app_request
 def load_logged_in_user():
@@ -17,6 +17,14 @@ def load_logged_in_user():
 		g.user = get_db().execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
 
 @blueprint_home.route('/', methods=(['GET']))
+def index():
+    try:
+        load_logged_in_user()  #fill out home page for regular user
+        return render_template('home/home.html')
+    except:
+        return render_template('home/home.html') #Generic Welcome page.
+    
+@blueprint_home.route('/home', methods=(['GET']))
 def home():
     try:
         load_logged_in_user()  #fill out home page for regular user

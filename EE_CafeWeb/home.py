@@ -44,8 +44,11 @@ def register():
 	if request.method == "POST":
 		username = request.form['username']
 		password = request.form['password']
-		db = get_db()
-		error = None
+		try:
+			db = get_db()
+			error = None
+		except:
+			flash(error)
 
 		if not username:
 			error = 'Username is required.'
@@ -101,9 +104,9 @@ def login_required(view):
 	@functools.wraps(view)
 	def wrapped_view(**kwargs):
 		if g.user is None:
-
+			
 			return redirect(url_for('home.home'))  
-
+		
 		return view(**kwargs)
-
+	
 	return wrapped_view

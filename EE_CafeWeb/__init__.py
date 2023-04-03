@@ -1,5 +1,5 @@
 import os
-from flask import (Blueprint, Flask, flash, g, redirect, render_template, request, session, url_for)
+from flask import (Flask, render_template)
 from flask_wtf.csrf import (CSRFProtect, CSRFError)
 
 secret_key = os.urandom(20)
@@ -64,8 +64,8 @@ def create_app(test_config=None):
     def handle_csrf_error(e):
         return render_template('error.html',reason=e.description), 400
     
-    from . import db
-    db.init_app(app)
+#    from . import db
+#    db.init_app(app)
 
     #@blueprint_home.route('/comingsoon', methods=(['GET']))
     #def comingsoon():
@@ -75,12 +75,12 @@ def create_app(test_config=None):
     #    except:
     #        return render_template('home/home.html')
 
-#    from . import db
-#    try:
-#        db.init_app(app)
-#    except Error as err_num:
-#        print("Error Initializing database.")
-#        print(err_num)
+    from . import db
+    try:
+        db.init_app(app)
+    except Error as err_num:
+        print("Error Initializing database.")
+        print(err_num)
 
     return app
 

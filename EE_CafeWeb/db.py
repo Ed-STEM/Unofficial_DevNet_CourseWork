@@ -40,5 +40,9 @@ def init_db_command():
     click.echo("Initialized the database.")
 
 def init_app(app):
-    app.teardown_appcontext(close_db)
+    #try:
+    #    app.teardown_appcontext(close_db)
+    #except:
+    #    print("database taredown failed.")
+    #finally:
     app.cli.add_command(init_db_command)

@@ -23,7 +23,6 @@ def close_db(e=None):
             db.close()
             print("Database shutdown.")
 
-#@current_app.before_first_request
 def init_db():
     db = get_db()
     try:
@@ -40,9 +39,5 @@ def init_db_command():
     click.echo("Initialized the database.")
 
 def init_app(app):
-    #try:
-    #    app.teardown_appcontext(close_db)
-    #except:
-    #    print("database taredown failed.")
-    #finally:
+    app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)

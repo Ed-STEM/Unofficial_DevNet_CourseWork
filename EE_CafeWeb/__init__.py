@@ -38,10 +38,16 @@ def create_app(test_config=None):
 
     try:
         os.makedirs(app.instance_path)
-    except OSError:
-        pass
+    except OSError as Err_os:
+        print("There was a directory creation error: ", Err_os)
+        
+    from . import db
+    try:
+        db.init_app(app)
+    except Error as err_num:
+        print("Error Initializing database.")
+        print(err_num)
 
-    
     from . import home
     app.register_blueprint(home.blueprint_home)
 
@@ -75,12 +81,7 @@ def create_app(test_config=None):
     #    except:
     #        return render_template('home/home.html')
 
-    from . import db
-    try:
-        db.init_app(app)
-    except Error as err_num:
-        print("Error Initializing database.")
-        print(err_num)
+   
 
     return app
 

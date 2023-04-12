@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='stylesheet.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='navstyle.css')}}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Media/icons8-coffee-cup-50.png') }}">
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
@@ -21,9 +21,9 @@
        
         <div id="total_header">
             <div id="sideNav" class="sidebar">
-                <a href="javascript:void(0)" class ="closebtn" onclick="changeSideNav()"><img  src="{{url_for('static', filename='images/border-style.svg')}}" width="23" height="23"/></a>
-                <a href="{{url_for('dashboard.devices')}}"><img src="{{url_for('static', filename='images/heart-pulse.svg')}}" width="23" height="23"><span class="sidebar_text">  Devices</span></a>
-                <a href="{{url_for('dashboard.networks')}}"><img src="{{url_for('static', filename='images/house-door.svg')}}" width="23" height="23"/><span class="sidebar_text">  Locations</span></a>
+                <a href="javascript:void(0)" class ="closebtn" onclick="changeSideNav()"><img  src="{{url_for('static', filename='Media/border-style.svg')}}" width="23" height="23"/></a>
+                <a href="{{url_for('dashboard.devices')}}"><img src="{{url_for('static', filename='Media/heart-pulse.svg')}}" width="23" height="23"><span class="sidebar_text">  Devices</span></a>
+                <a href="{{url_for('dashboard.networks')}}"><img src="{{url_for('static', filename='Media/house-door.svg')}}" width="23" height="23"/><span class="sidebar_text">  Locations</span></a>
             </div>
 
             <div id="header_left">

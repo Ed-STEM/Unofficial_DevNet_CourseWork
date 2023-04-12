@@ -11,8 +11,6 @@ DROP TABLE IF EXISTS totaldata;
 CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
-/*    permissions TEXT UNIQUE NOT NULL,
-    teamname TEXT NOT NULL, */
     password TEXT NOT NULL
 );
 

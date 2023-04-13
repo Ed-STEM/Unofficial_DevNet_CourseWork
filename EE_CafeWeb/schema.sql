@@ -27,7 +27,6 @@ CREATE TABLE devices (
     admin_id INTEGER NOT NULL,
     network_id TEXT NOT NULL,
     device_id TEXT NOT NULL,
-    FOREIGN KEY (admin_id) REFERENCES user(id)
     FOREIGN KEY (network_id) REFERENCES networks(network_id)
 );
 
@@ -37,8 +36,6 @@ CREATE TABLE bandwidthPerc (
     network_id TEXT NOT NULL,
     device_id TEXT NOT NULL,
     bandwidthpercentage INTEGER NOT NULL,
-    FOREIGN KEY (admin_id) REFERENCES user (id)
-    FOREIGN KEY (network_id) REFERENCES networks(network_id)
     FOREIGN KEY (device_id) REFERENCES devices(device_id)
 );
 
@@ -48,7 +45,5 @@ CREATE TABLE totaldata (
     network_id TEXT NOT NULL,
     device_id TEXT NOT NULL,
     dataconsumed FLOAT NOT NULL,
-    FOREIGN KEY (admin_id) REFERENCES user (id)
-    FOREIGN KEY (network_id) REFERENCES networks(network_id)
     FOREIGN KEY (device_id) REFERENCES devices(device_id)
 );

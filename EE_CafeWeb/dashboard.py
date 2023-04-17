@@ -3,7 +3,6 @@ import functools
 
 #Our webapp libraries
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for, Response)
-from werkzeug.security import check_password_hash, generate_password_hash
 from EE_CafeWeb.db import get_db
 from EE_CafeWeb.home import login_required
 
@@ -21,10 +20,11 @@ import meraki.aio
 
 
 # For drawing visualizatins directly with python
-from matplotlib.backends.backend_agg import FigureCanvasAgg as figc
-from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
-import numpy as np
+
+import pandas as pd
+import seaborn as sns
+import time
 
 os.environ.get('XCiscoMerakiAPIKey')
 url = 'https://api.meraki.com/api/v1'
@@ -69,7 +69,8 @@ def meraki_user_authorize_API():
         session = NoRebuildAuthSession()
         API_KEY = X-Cisco-Meraki-API-Key
         response = session.get('https://api.meraki.com/api/v1/organizations/', headers={'Authorization': f'Bearer {API_KEY}'})
-        print(response.json()) 
+        auth_data = response.json()
+        auth_df = pd.DataFrame(auth_data) 
         return render_template('dashboard/dashboard.html', response=response)
     except Exception as error:
         return render_template('dashboard/dashboard.html', personal_auth=error)   
@@ -81,22 +82,23 @@ def meraki_user_authorize_SDK():
     try:
         dashboard = meraki.DashboardAPI(API_KEY)
         response = dashboard.organizations.getOrganizations()
-        print(response) 
+        authorize_data =response 
         return render_template('dashboard/dashboard.html', response=response)
     except Exception as error:
         return render_template('dashboard/dashboard.html', personal_auth=error)   
  
 
-@blueprint_dash.route('/health_alerts', methods=('GET', 'POST'))
+@blueprint_dash.route('/orgs', methods=('GET', 'POST'))
 @login_required
-async def get_health_usage(organization_Id):
+async def get_orgs(organization_Id):
     payload = {'bandwidthLimits': bandwidth_limits}
     response = requests.put(f'{url} /organizations/{organizationId}/summary/top/clients/byUsage', headers=headers, json=payload)
     if response.status_code == 200:
-        return render_template('dashboard/dashboard.html', response=response)
+        return render_template('dashboard/dashboard.html', health_alerts=health_alerts)
     else:
         return response.status_code
-  
+
+#Combine response API data to create one graph visualization that refreshes instead of several seperate functions.  
 @blueprint_dash.route('/health_alerts', methods=('GET', 'POST'))
 @login_required
 async def get_health_alerts(network_id):
@@ -111,7 +113,7 @@ async def get_health_alerts(network_id):
 
 @blueprint_dash.route('/networks', methods=('GET', 'POST'))
 #@login_required
-async def networks(aiomeraki: meraki.aio.AsyncDashboardAPI, org):
+async def get_networks(aiomeraki: meraki.aio.AsyncDashboardAPI, org):
     try:
         networks = await aiomeraki.clients.getOrganizationNetworks(
             org["id"]
@@ -128,7 +130,7 @@ async def networks(aiomeraki: meraki.aio.AsyncDashboardAPI, org):
 
 @blueprint_dash.route('/devices', methods=('GET', 'POST'))
 @login_required
-async def devices(aiomeraki: meraki.aio.AsyncDashboardAPI, network):
+async def get_devices(aiomeraki: meraki.aio.AsyncDashboardAPI, network):
     try:
         clients = await aiomeraki.clients.getNetworkClients(
             network["id"],
@@ -158,17 +160,29 @@ async def allocate_bandwidth(network_id, bandwidth_limits):
         return response.status_code
 
 
-@blueprint_dash.route('/active_friends', methods=('GET', 'POST'))
+@blueprint_dash.route('/graph', methods=('GET', 'POST'))
 @login_required
-def active_devices():
-    #Junk data for testing right now.
-    plt.rcParams["figure.figsize"] = [7.50, 3.50]
-    plt.rcParams["figure.autolayout"] = True
-    test_fig = Figure()
-    axis = test_fig.add_subplot(1, 1, 1)
-    xs = [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10]
-    ys = [3, 3, 3.35, 3.15, 3, 3.15, 3, 3.25, 3, 3.15]
-    axis.plot(xs, ys)
-    output = io.BytesIO()
-    figc(test_fig).print_png(output)
-    return Response(output.getvalue(), mimetype='image/png')    
+def graph():
+    while(session):
+        try:
+            networks = get_networks()
+            devices = get_devices()
+            health_alets = get_health_alerts()
+
+            networks_df = pd.DataFrame(networks)
+            devices_df = pd.DataFrame(devices)
+            health_alets_df = pd.DataFrame(health_alets)
+
+            sns.set_style("whitegrid")
+            networks_graph = sns.countplot(x="Network Name", data=networks_df)
+            devices_graph = sns.countplot(x="Device Name", data=devices_df)
+            health_alerts_graph = sns.countplot(x="Health Alerts", data=health_alerts_df)
+
+            return render_template("dashboard/dashboard.html", networks_graph=networks_graph, devices_graph=devices_graph, health_alerts_graph=health_alerts_graph) 
+        except:
+            flash("Connection to Meraki failed.")
+        finally:
+            time.sleep(30)
+   
+    return render_template('dashboard/dashboard.html', personal_auth=error)
+       

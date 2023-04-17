@@ -22,8 +22,8 @@
         <div id="total_header">
             <div id="sideNav" class="sidebar">
                 <a href="javascript:void(0)" class ="closebtn" onclick="changeSideNav()"><img  src="{{url_for('static', filename='Media/border-style.svg')}}" width="23" height="23"/></a>
-                <a href="{{url_for('dashboard.devices')}}"><img src="{{url_for('static', filename='Media/heart-pulse.svg')}}" width="23" height="23"><span class="sidebar_text">  Devices</span></a>
-                <a href="{{url_for('dashboard.networks')}}"><img src="{{url_for('static', filename='Media/house-door.svg')}}" width="23" height="23"/><span class="sidebar_text">  Locations</span></a>
+                <a href="{{url_for('dashboard.get_devices')}}"><img src="{{url_for('static', filename='Media/heart-pulse.svg')}}" width="23" height="23"><span class="sidebar_text">  Devices</span></a>
+                <a href="{{url_for('dashboard.get_networks')}}"><img src="{{url_for('static', filename='Media/house-door.svg')}}" width="23" height="23"/><span class="sidebar_text">  Locations</span></a>
             </div>
 
             <div id="header_left">

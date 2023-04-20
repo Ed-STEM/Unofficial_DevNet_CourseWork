@@ -6,8 +6,18 @@
     </div>
 {% endblock %}
 {% block content %}
+
+<div id = "welcome">
+{% if g.user %}
+  <h2>  Welcome back {{g.user['username']}} to EE_Cafe Webapp</h2>
+{% else %}
+  <h2>  Welcome to EE_Cafe Webapp</h2>
+{% endif %}      
+</div>
+
 <div id = "Graph">
-  
+  <h2> Graph Title</h2>
+  <img src=" data:image/png;base64, {{networks_graph}}"
 </div>
 <div id = "container">
     <div id = "first">

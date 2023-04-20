@@ -5,13 +5,16 @@
     -->#}
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='stylesheet.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename ='navstyle.css')}}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='Media/icons8-coffee-cup-50.png') }}">
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
-    <script src ="{{url_for('static', filename='topnavbar.js')}}"></script>
-    <script src="https://binaries.webex.com/static-content-pipeline/webex-embedded-app/v1/webex-embedded-app-sdk.js" defer></script>
+    <script src ="{{url_for('static', filename='navbar.js')}}"></script>
+    {#<!--
+        Future Webex Functionailty
+        <script src="https://binaries.webex.com/static-content-pipeline/webex-embedded-app/v1/webex-embedded-app-sdk.js" defer></script>
+    -->}
+    
    
 
     <head class="head"> 
@@ -22,8 +25,9 @@
         <div id="total_header">
             <div id="sideNav" class="sidebar">
                 <a href="javascript:void(0)" class ="closebtn" onclick="changeSideNav()"><img  src="{{url_for('static', filename='Media/border-style.svg')}}" width="23" height="23"/></a>
-                <a href="{{url_for('dashboard.get_devices')}}"><img src="{{url_for('static', filename='Media/heart-pulse.svg')}}" width="23" height="23"><span class="sidebar_text">  Devices</span></a>
-                <a href="{{url_for('dashboard.get_networks')}}"><img src="{{url_for('static', filename='Media/house-door.svg')}}" width="23" height="23"/><span class="sidebar_text">  Locations</span></a>
+                <a href="{{url_for('home.home')}}"><img src="{{url_for('static', filename='Media/house-door.svg')}}" width="23" height="23"/><span class="sidebar_text">  Home</span></a>
+                <a href="{{url_for('dashboard.dashboard')}}"><img src="{{url_for('static', filename='Media/heart-pulse.svg')}}" width="23" height="23"><span class="sidebar_text"> Dashboard</span></a>
+                <input  id="search_bar" type="text" placeholder="Search.." >
             </div>
 
             <div id="header_left">
@@ -35,6 +39,7 @@
             </div>
             
             <div id="header_right">  
+                
                 <h2>
                     {% if g.user %}
                     <span>{{g.user['username']}}</span>
@@ -58,11 +63,8 @@
     </head>
     
     <div class='topnav'>
-        <input  id="search_bar" type="text" placeholder="Search.." >
-        <div id="menu_bar">
-            <a id="home_link" class="main_nav" href="{{url_for('home.home')}}">Home</a>
-            <a id="dashboard_link" class="main_nav" href="{{url_for('dashboard.dashboard')}}">Dashboard</a>
-        </div>    
+        
+  
         {#<!--
             We can still put comments into our code with these brackets.
         -->#}  

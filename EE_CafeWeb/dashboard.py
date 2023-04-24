@@ -159,6 +159,16 @@ async def allocate_bandwidth(network_id, bandwidth_limits):
     else:
         return response.status_code
 
+#Need to store original network plan or state...
+# Then continue to wipe DB and reset original
+# Maybe add warning flash prompt? 
+@blueprint_dash.route('/resetNetworks', methods=('GET','POST'))
+@login_required
+def reset_Networks(network_id):
+    payload = {}
+    response = requests.put(f'{url}/networks/{network_id}/' , headers=headers, json=payload)
+    return response.status_code
+
 
 @blueprint_dash.route('/graph', methods=('GET', 'POST'))
 @login_required

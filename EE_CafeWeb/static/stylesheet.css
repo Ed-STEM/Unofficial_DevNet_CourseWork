@@ -81,20 +81,20 @@ body {
 }
 .grid-container {
     display: grid;
-    grid-template-areas: "buttonAdd buttonRemove buttonRefresh buttonReset";
+    grid-template-areas: "bAdd bRemove bRefresh bReset";
     grid-gap: 5px;
 }
 .grid-item:nth-child(1) {
-    grid-area: button1;
+    grid-area: bAdd;
 }
 .grid-item:nth-child(2) {
-    grid-area: button1;
+    grid-area: bRemove;
 }
 .grid-item:nth-child(3) {
-    grid-area: button1;
+    grid-area: bRefresh;
 }
 .grid-item:nth-child(4) {
-    grid-area: button1;
+    grid-area: bReset;
 }
 /*
   @media(max-width:100px) 

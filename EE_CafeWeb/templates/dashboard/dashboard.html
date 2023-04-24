@@ -16,23 +16,23 @@
 </div>
 
 <div id = "Graph">
-  <h2> Graph Title</h2>
+  <h2> Current Network Status </h2>
   <img src=" data:image/png;base64, {{networks_graph}}"
 </div>
 <div id = "container">
     <div id = "first">
       <div class = "grid-container">
         <div class="grid-item">
-          <button type = "button" id = "bAdd" class = "small_btn">ButtonAdd</button>
+          <button type = "button" id = "bAdd" class = "small_btn" href="{{url_for('dashboard.get_networks')}}">Network Add New</button>
         </div>
         <div class="grid-item">
-          <button type = "button" id = "bRemove" class = "small_btn">ButtonRemove</button>
+          <button type = "button" id = "bRemove" class = "small_btn" href="{{url_for('dashboard.get_networks')}}">Network Remove</button>
         </div>
         <div class="grid-item">
-          <button type = "button" id = "bRefresh" class = "small_btn">ButtonRefresh</button>
+          <button type = "button" id = "bRefresh" class = "small_btn" href="{{url_for('dashboard.graph')}}">Refresh Status</button>
         </div>
         <div class="grid-item">
-          <button type = "button" id = "bReset" class = "small_btn">ButtonReset</button>
+          <button type = "button" id = "bReset" class = "small_btn" href="{{url_for('dashboard.reset_Networks')}}" >Reset Network</button>
         </div>
       </div>
     </div>

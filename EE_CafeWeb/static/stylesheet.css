@@ -54,6 +54,13 @@ body {
     color: #FBEAEB;
 }
 
+#graph{
+    position: fixed;
+    top: 25%;
+    left: 25%;
+
+}
+
 [method=post]{
 	text-align: center;
 	background-color: #CCFFFF;

@@ -21,6 +21,8 @@ import meraki.aio
 
 # For drawing visualizatins directly with python
 import matplotlib.pyplot as plt
+import base64
+import random
 
 import pandas as pd
 import seaborn as sns
@@ -164,7 +166,7 @@ async def allocate_bandwidth(network_id, bandwidth_limits):
 # Maybe add warning flash prompt? 
 @blueprint_dash.route('/resetNetworks', methods=('GET','POST'))
 @login_required
-def reset_Networks(network_id):
+def reset_networks(network_id):
     payload = {}
     response = requests.put(f'{url}/networks/{network_id}/' , headers=headers, json=payload)
     return response.status_code
@@ -191,6 +193,15 @@ def graph():
             return render_template("dashboard/dashboard.html", networks_graph=networks_graph, devices_graph=devices_graph, health_alerts_graph=health_alerts_graph) 
         except:
             flash("Connection to Meraki failed.")
+            #lets play with random data
+            example_dict = {}
+            ynets=random.randint(1,10)
+            for net in ynets:
+                example_dict[net] = random.randint(1,20)
+            example_df = pd.DataFrame(example_dict)
+            sns.set_style("whitegrid")
+            networks_graph = sns.countplot(x="Networks Status", data=example_df)
+            return render_template("dashboard/dashboard.html", networks_graph=networks_graph) 
         finally:
             time.sleep(30)
    

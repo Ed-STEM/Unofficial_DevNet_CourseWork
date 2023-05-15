@@ -15,11 +15,13 @@
 {% endif %}      
 </div>
 
-<div id = "Graph">
+<div id = "graph">
   <h2> Current Network Status </h2>
-  <img src=" data:image/png;base64, {{networks_graph}}"
-</div>
-<div id = "container">
+  <img src="{{url_for('static', filename='plot.png')}}"/> 
+  
+  <img src=" data:image/png;base64, {{networks_graph}}"/>
+
+  <div id = "container">
     <div id = "first">
       <div class = "grid-container">
         <div class="grid-item">
@@ -32,7 +34,7 @@
           <button type = "button" id = "bRefresh" class = "small_btn" href="{{url_for('dashboard.graph')}}">Refresh Status</button>
         </div>
         <div class="grid-item">
-          <button type = "button" id = "bReset" class = "small_btn" href="{{url_for('dashboard.reset_Networks')}}" >Reset Network</button>
+          <button type = "button" id = "bReset" class = "small_btn" href="{{url_for('dashboard.reset_networks')}}" >Reset Network</button>
         </div>
       </div>
     </div>
@@ -41,6 +43,7 @@
     </div>
   </div>
 
+</div>
 <div class="content_top_left">
 {% block content_top_left %}
 {% endblock %}

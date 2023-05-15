@@ -51,8 +51,8 @@ def create_app(test_config=None):
     from . import home
     app.register_blueprint(home.blueprint_home)
 
-    from . import dashboard
-    app.register_blueprint(dashboard.blueprint_dash)
+    from . import dashboard_archive
+    app.register_blueprint(dashboard_archive.blueprint_dash)
 
     @app.route('/test')
     def whatup():

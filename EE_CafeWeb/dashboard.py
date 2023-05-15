@@ -29,6 +29,39 @@ device_dict = {}
 
 blueprint_dash = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
+class NoRebuildAuthSession():
+ def rebuild_auth(self, prepared_request, response):
+   '''
+   No code here means requests will always preserve the Authorization header when redirected.
+   Be careful not to leak your credentials to untrusted hosts!
+   '''
+
+@blueprint_dash.route('/meraki_user_authorize_API', methods=('GET', 'POST'))
+@login_required
+def meraki_user_authorize_API():
+    try:
+        session = NoRebuildAuthSession()
+        API_KEY = X-Cisco-Meraki-API-Key
+        response = session.get('https://api.meraki.com/api/v1/organizations/', headers={'Authorization': f'Bearer {API_KEY}'})
+        auth_data = response.json()
+        auth_df = pd.DataFrame(auth_data) 
+        return render_template('dashboard/dashboard.html', response=response)
+    except Exception as error:
+        return render_template('dashboard/dashboard.html', personal_auth=error)   
+ 
+
+@blueprint_dash.route('/meraki_user_authorize_SDK', methods=('GET', 'POST'))
+@login_required
+def meraki_user_authorize_SDK():
+    try:
+        dashboard = meraki.DashboardAPI(API_KEY)
+        response = dashboard.organizations.getOrganizations()
+        authorize_data =response 
+        return render_template('dashboard/dashboard.html', response=response)
+    except Exception as error:
+        return render_template('dashboard/dashboard.html', personal_auth=error)   
+ 
+
 def get_networks_and_devices(api_key):
     headers = {
         'X-Cisco-Meraki-API-Key': api_key,
@@ -63,5 +96,5 @@ def dashboard():
 
     # Render the plot as an image and display it in the template
     figure = sns.plotting_context().get_figure()
-    figure.savefig('static/plot.png')
+    figure.savefig('static/Media/plot.png')
     return render_template('index.html', networks_with_devices=networks_with_devices)

@@ -18,7 +18,7 @@
 <div id = "graph">
   <h2> Current Network Status </h2>
   <img src="{{url_for('static', filename='plot.png')}}"/> 
-  {#<!--
+  
   <img src=" data:image/png;base64, {{networks_graph}}"/>
 
   <div id = "container">
@@ -42,7 +42,7 @@
       <p>Current Meraki Network Statistics.</p>
     </div>
   </div>
-  -->#}
+
 </div>
 <div class="content_top_left">
 {% block content_top_left %}

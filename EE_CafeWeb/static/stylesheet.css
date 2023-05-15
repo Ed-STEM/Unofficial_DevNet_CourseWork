@@ -1,7 +1,7 @@
 #total_header{
     width: 96%;
     margin-left: 70px;
-    background-image: linear-gradient(to right,rgba(221, 77, 51, 0.533), #ff6666 ); 
+    background-image: linear-gradient(to right,rgba(51, 221, 156, 0.533), #66c9ff ); 
     display: flex;
     flex-direction: row;
     position :absolute top 75px;
@@ -13,7 +13,7 @@
 #header_left{
     overflow: hidden;
     font-family: 'Rockwell', 'Arial', serif;
-    color: #f9fac7;
+    color: darkblue;
     text-align: left;
     align-items: center;
     width: 70%;
@@ -26,7 +26,7 @@
 #header_right a{
     overflow: visible;
     font-family: 'Helvetica', 'Arial', sans-serif;
-    color: #f9fac7;
+    color: darkblue;
     white-space: nowrap;
 }
 
@@ -145,7 +145,7 @@ footer{
     width: 95%;
     height: 50px;
     margin-left: 70px;
-    background: #ff6666; 
+    background: #66c9ff ; 
     display: block;
     text-align: center;
     bottom: 0;

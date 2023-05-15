@@ -22,7 +22,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/EdNetTitan/Unofficial_DevNet_CourseWork">
-    <img src="Media/CourseLogo.jpeg" alt="Logo" width="80" height="80">
+    <img src="static/Media/CourseLogo.jpeg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Unofficial Cisco DevNet Associates Course</h3>

@@ -25,7 +25,8 @@
     <img src="static/Media/CourseLogo.jpeg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Unofficial Cisco DevNet Associates Course</h3>
+  <h3 align="center">Unofficial Cisco DevNet Associates Course 
+Supplement</h3>
 
   <p align="center">
     Here are some important project links!
